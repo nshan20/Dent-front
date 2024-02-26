@@ -1,0 +1,115 @@
+<div class="big-container">
+  <div class="search">
+    <mat-form-field class="example-full-width">
+      <mat-label>Search</mat-label>
+      <input matInput (input)="search(valid.value)" #valid>
+    </mat-form-field>
+  </div>
+
+  <div class="table-list">
+    <div class="list">
+
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource">
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name</th>
+            <td mat-cell style="cursor: pointer" *matCellDef="let element"> {{ element.name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef> lastName</th>
+            <td mat-cell style="cursor: pointer" *matCellDef="let element" (click)="info(element.id)"> {{ element.lastName }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="surName">
+            <th mat-header-cell *matHeaderCellDef> sur Name</th>
+            <td mat-cell style="cursor: pointer" *matCellDef="let element" (click)="info(element.id)"> {{ element.surName }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="age">
+            <th mat-header-cell *matHeaderCellDef> age</th>
+            <td mat-cell style="cursor: pointer" *matCellDef="let element" (click)="info(element.id)"> {{ element.age }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="phoneNumber">
+            <th mat-header-cell *matHeaderCellDef> Phone Number</th>
+            <td mat-cell style="cursor: pointer" *matCellDef="let element" (click)="info(element.id)"> {{ element.phoneNumber }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="urlFail">
+            <th mat-header-cell *matHeaderCellDef> Url Fail</th>
+            <td mat-cell style="cursor: pointer" *matCellDef="let element">
+              <a [href]="element.urlFail" target="_blank" *ngIf="element.urlFail">rengen</a>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="registerDate">
+            <th mat-header-cell *matHeaderCellDef> registerDate</th>
+            <td mat-cell style="cursor: pointer" *matCellDef="let element"
+                (click)="info(element.id)"> {{ element.registerDate | date:"short" }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell style="cursor: pointer" *matCellDef="let element" >
+              <span class="material-symbols-outlined" [routerLink]="['/system/edit-form', element.id]">edit</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell style="cursor: pointer" *matCellDef="let element"
+                data-bs-toggle="modal" data-bs-target="#myModal">
+              <span class="material-symbols-outlined" (click)="openDeleteModal(element)">delete</span>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                       style="width: 100%; position: sticky; left: 0"
+                       showFirstLastButtons
+                       aria-label="Select page of periodic elements">
+        </mat-paginator>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Are you sure?</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        you are going to delete the form
+        {{ deleteMedicalForms?.name }}
+        {{ deleteMedicalForms?.firstname }}
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                (click)="deleteById(deleteMedicalForms.id)"
+        >Delete
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+

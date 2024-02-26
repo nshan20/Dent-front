@@ -1,0 +1,17 @@
+.big-container{
+  width: 100%;
+  .child-container{
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    .example-form{
+      display: flex;
+      flex-direction: column;
+    }
+    .section{
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+

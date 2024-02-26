@@ -1,0 +1,13 @@
+.big-container{
+  border: black solid 1px;
+  width: 100%;
+  .container{
+    width: 80%;
+    border: red solid 2px;
+    margin: auto;
+    .content{
+      display: flex;
+
+    }
+  }
+}

@@ -1,0 +1,76 @@
+<div class="big-container">
+  <div class="search">
+    <mat-form-field class="example-full-width">
+      <mat-label>Որոնում</mat-label>
+      <input matInput (input)="search(valid.value)" #valid>
+    </mat-form-field>
+  </div>
+
+  <div class="table-list">
+    <div class="list">
+
+      <div class="mat-elevation-z8">
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                       style="width: 100%; position: sticky; left: 0"
+                       showFirstLastButtons
+                       aria-label="Select page of periodic elements">
+        </mat-paginator>
+
+        <table mat-table [dataSource]="dataSource">
+
+          <ng-container matColumnDef="dayDate">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell style="cursor: pointer" *matCellDef="let element">
+
+              <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{ element.dayDate }}
+
+                    </mat-panel-title>
+                    <mat-panel-description>
+
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+
+
+                  <div class="content-dayInfo-blog" style="border-bottom: 1px solid black">
+                    <div class="content-dayInfo">ժանմ</div>
+                    <div class="content-dayInfo">Անուն</div>
+                    <div class="content-dayInfo">Ազգանուն</div>
+                    <div class="content-dayInfo">Համար</div>
+                  </div>
+                  <div class="content-dayInfo-blog"
+                       *ngFor="let dayInfo of element.dayInfo"
+                       style="margin-top: 10px; border-bottom: rgb(212,209,209) solid 1px">
+                    <div class="content-dayInfo"><p>{{ dayInfo.time }}</p></div>
+                    <div class="content-dayInfo"><p>{{ dayInfo.name }}</p></div>
+                    <div class="content-dayInfo"><p>{{ dayInfo.lastName }}</p></div>
+                    <div class="content-dayInfo"><p>{{ dayInfo.phone }}</p></div>
+                  </div>
+
+
+                </mat-expansion-panel>
+              </mat-accordion>
+              <div style="height: 1px">
+
+              </div>
+
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+

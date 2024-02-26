@@ -1,0 +1,28 @@
+<div class="big-container">
+  <div class="container">
+
+    <button mat-raised-button color="primary" [routerLink]="'/system/forms'"> < to back</button>
+
+    <div class="content">
+      <h1> {{ medicalForms?.name }} &nbsp;</h1>
+      <h1> {{ medicalForms?.surName }} &nbsp; </h1>
+      <h1> {{ medicalForms?.lastName }} &nbsp; </h1>
+      <h1> {{ medicalForms?.age }} &nbsp; </h1>
+      <h1> {{ medicalForms?.phoneNumber }}</h1>
+    </div>
+
+    <div class="content">
+      <h1>{{ medicalForms?.description }}</h1>
+    </div>
+
+    <div class="content">
+      <h1>{{ medicalForms?.registerDate | date:"short" }}</h1>
+    </div>
+
+    <div class="content" *ngIf="medicalForms?.urlFail">
+      <h1><a [href]="medicalForms?.urlFail" target="_blank">rengen Link</a></h1>
+    </div>
+
+  </div>
+</div>
+

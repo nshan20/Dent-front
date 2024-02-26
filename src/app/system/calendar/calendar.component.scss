@@ -1,0 +1,74 @@
+.big-container {
+  width: 100%;
+  display: flex;
+
+  .calendar {
+    width: 300px;
+  }
+
+  .text-section {
+    width: calc(100% - 300px);
+
+    .data-number {
+      font-size: 26px;
+      font-feature-settings: "tnm" 1;
+      margin-left: 20px;
+    }
+
+    .busy-day {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      .time-day {
+        width: 10%;
+      }
+
+      .description-text {
+        width: 20%;
+      }
+
+    }
+  }
+}
+
+.btn-dark{
+  height: 40px;
+  margin: 5px;
+}
+
+.demo-inline-calendar-card {
+  width: 300px;
+}
+
+.loading{
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 60px);
+  background: rgba(0, 0, 0, 0.07);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: #ffffff !important;
+}
+
+@media only screen and (max-width: 700px) {
+  .big-container {
+    display: flex;
+    flex-direction: column;
+    .calendar {
+      width: 300px;
+      margin: auto;
+    }
+
+    .text-section {
+      width: 100%
+    }
+  }
+}
+
+

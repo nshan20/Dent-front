@@ -1,0 +1,69 @@
+<div *ngIf="loading" class="loading">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div class="big-container" [formGroup]="itemForm">
+  <div class="calendar">
+    <mat-card class="demo-inline-calendar-card">
+      <mat-calendar [(selected)]="selected" (selectedChange)="getDateChangedValue()"></mat-calendar>
+    </mat-card>
+  </div>
+  <div class="text-section">
+    <div class="data-number" style="font-size: 10px; margin-top: 10px"> {{ selected | date:"EEEE" }}</div>
+    <div class="data-number"> {{ selected | date:"shortDate" }}</div>
+
+    <div formArrayName="items">
+      <div *ngFor="let itemGroup of items.controls; let i = index">
+        <div [formGroupName]="i">
+          <div class="busy-day">
+
+            <div class="description-text" style="margin-left: 5px">
+              <mat-form-field class="example-full-width" style="width: 100%">
+                <mat-label>time</mat-label>
+                <input matInput type="time" id="appt"
+                       name="appt"
+                       formControlName="time" (input)="postItem(i)">
+              </mat-form-field>
+            </div>
+
+            <div class="description-text">
+              <mat-form-field class="example-full-width" style="width: 100%">
+                <mat-label>name</mat-label>
+                <input matInput formControlName="name" (input)="postItem(i)">
+              </mat-form-field>
+            </div>
+
+            <div class="description-text">
+              <mat-form-field class="example-full-width" style="width: 100%">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="lastName" (input)="postItem(i)">
+              </mat-form-field>
+            </div>
+
+            <div class="description-text">
+              <mat-form-field class="example-full-width" style="width: 100%">
+                <mat-label>phone</mat-label>
+                <input type="phone" matInput formControlName="phone" (input)="postItem(i)">
+              </mat-form-field>
+            </div>
+
+            <button type="button"
+                    class="btn btn-dark"
+                    (click)="deleteItem(i)">
+              <span class="material-symbols-outlined">delete</span>
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <button mat-raised-button color="primary"
+            *ngIf="selected"
+            style="margin-left: 20px"
+            (click)="addItem()">Add Time +
+    </button>
+
+  </div>
+</div>

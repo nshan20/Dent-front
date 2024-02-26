@@ -1,0 +1,31 @@
+.big-container {
+  width: 100%;
+
+  .child-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+
+    .example-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .section {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .big-container {
+
+    .child-container {
+      width: 95%;
+      .example-full-width{
+        width: 30%;
+      }
+    }
+  }
+}

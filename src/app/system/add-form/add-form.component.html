@@ -1,0 +1,59 @@
+<div class="big-container">
+  <div class="child-container">
+    <form class="example-form" [formGroup]="form" >
+
+      <div class="section">
+        <mat-form-field class="example-full-width">
+          <mat-label>Anun</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Azganun</mat-label>
+          <input matInput formControlName="lastName">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Hayranun</mat-label>
+          <input matInput formControlName="surName">
+        </mat-form-field>
+      </div>
+
+      <div class="section">
+        <mat-form-field class="example-full-width">
+          <mat-label>tarik</mat-label>
+          <input matInput formControlName="age">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>heraxos</mat-label>
+          <input matInput formControlName="phoneNumber">
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>rengen Link</mat-label>
+          <input matInput formControlName="urlFail">
+        </mat-form-field>
+      </div>
+
+
+      <mat-form-field class="example-full-width" style="width: 100%">
+        <mat-label>manramasner</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="submitAddForm()" [disabled]="form.invalid">ADD</button>
+    </form>
+
+  </div>
+</div>
+
+<!-- file.component.html -->
+<div>
+  <input type="file" name="file" (change)="onFileSelected($event)" />
+  <button (click)="uploadFile()">Upload File</button>
+</div>
+
+<div>
+  <button (click)="downloadFile()">Download File</button>
+</div>
