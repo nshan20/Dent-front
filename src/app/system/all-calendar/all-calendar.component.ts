@@ -37,7 +37,6 @@ export class AllCalendarComponent  implements OnInit, AfterViewInit {
 
   getAllMedicalForms() {
     this.usersService.getCalendar().subscribe((forms: any) => {
-      console.log(forms, "forms")
       this.forms = forms;
       this.clientForms = [...forms];
       this.dataSource.data = [...forms];

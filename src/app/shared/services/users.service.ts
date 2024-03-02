@@ -1,16 +1,29 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
+import {environmentProduction} from "../../../environments/environment";
+import {environmentDevelopment} from "../../../environments/environment.prod";
+
+
+
 
 @Injectable({
   providedIn: 'root',
 })
 
 export class UsersService{
-  constructor(private http: HttpClient) {
-  }
 
-  urlLink: string = `http://localhost:8081`;
+  urlLink: string;
+
+  constructor(private http: HttpClient) {
+    if (environmentProduction.production) {
+      // Do something specific for production
+      this.urlLink = environmentProduction.apiUrl ;
+    } else {
+      // Do something specific for development
+      this.urlLink = environmentDevelopment.apiUrl ;
+    }
+  }
 
   //----------- medical Forms ------------
   getAllMedicalForms(): Observable<any> {
@@ -70,7 +83,6 @@ export class UsersService{
   uploadFile(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
-    console.log(formData);
 
     return this.http.post(`${this.urlLink}/upload`, formData);
   }

@@ -61,7 +61,6 @@ export class AddFormComponent implements OnInit {
 
   uploadFile(): void {
     if (this.selectedFile) {
-      console.log(this.selectedFile)
       this.usersService.uploadFile(this.selectedFile).subscribe(
         response => {
           console.log('File uploaded successfully:', response);
