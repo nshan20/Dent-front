@@ -1,28 +1,16 @@
 import {HttpClient} from "@angular/common/http";
-import {Injectable, OnInit} from "@angular/core";
+import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {environmentProduction} from "../../../environments/environment";
-import {environmentDevelopment} from "../../../environments/environment.prod";
-
-
-
-
+import {environment} from "../../../environments/environment";
 @Injectable({
   providedIn: 'root',
 })
 
 export class UsersService{
 
-  urlLink: string;
+  urlLink:string =  environment.apiUrl;
 
   constructor(private http: HttpClient) {
-    if (environmentProduction.production) {
-      // Do something specific for production
-      this.urlLink = environmentProduction.apiUrl ;
-    } else {
-      // Do something specific for development
-      this.urlLink = environmentDevelopment.apiUrl ;
-    }
   }
 
   //----------- medical Forms ------------
