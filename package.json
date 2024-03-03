@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "ci": "ng build",
     "watch": "ng build --watch --configuration development",
     "server": "json-server --watch db.json --port 3000",
     "dev": "concurrently --kill-others \"ng serve --host 0.0.0.0\" \"npm run server --host 0.0.0.0\"",
