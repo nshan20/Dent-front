@@ -66,6 +66,7 @@ export class CalendarComponent implements OnInit {
         this.items.at(index).get('lastName')?.patchValue(newLastName);
         this.items.at(index).get('phone')?.patchValue(newPhone);
 
+
         const dayInfo = JSON.stringify(this.itemForm.value.items);
 
         const obj = {

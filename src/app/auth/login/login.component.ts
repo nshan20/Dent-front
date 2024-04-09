@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup | any;
   massage: MassageModel | any;
 
-  message?: MassageModel;
+  message?: MassageModel | any;
 
   constructor(
     private usersService: UsersService,
@@ -31,12 +31,11 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
 
     // @ts-ignore
-    if (JSON.parse(localStorage.getItem('token'))) {
-      this.router.navigate(['/system']);
-    }
+    // if (JSON.parse(localStorage.getItem('token'))) {
+    //   this.router.navigate(['/system']);
+    // }
 
-
-    this.massage = new MassageModel("danger", "");
+    // this.massage = new MassageModel("danger", "");
 
     this.rout.queryParams.subscribe((params: any) => {
       if (params['newCanLogin']) {
@@ -78,13 +77,15 @@ export class LoginComponent implements OnInit {
   //     })
   // }
 
-  onSubmit(formData: FormGroup, loginDirective: FormGroupDirective) {
-    this.usersService.postLogin({password: formData.value.password, email: formData.value.email})
+  onSubmit(formData: FormGroup | any, loginDirective: FormGroupDirective | any) {
+    this.usersService.postLogin({password: formData.value.password, username: formData.value.email})
       .subscribe((user: any) => {
-        this.massage.text = "";
+        console.log(user)
         window.localStorage.setItem("token", JSON.stringify(user.token));
         this.authService.login();
         this.router.navigate(['/system']);
+        //ts-ignore
+        this.massage.text = "";
       }, error => {
         this.showMassage("սխալ գաղտնաբառ");
       })

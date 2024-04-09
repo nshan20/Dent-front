@@ -2,13 +2,14 @@ import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
+
 @Injectable({
   providedIn: 'root',
 })
 
-export class UsersService{
+export class UsersService {
 
-  urlLink:string =  environment.apiUrl;
+  urlLink: string = environment.apiUrl;
 
   constructor(private http: HttpClient) {
   }
@@ -58,7 +59,7 @@ export class UsersService{
 
   //----- login -------------
 
-  postLogin(obj: object) {
+  postLogin(obj: object): Observable<any> {
     return this.http.post(`${this.urlLink}/login`, obj);
   }
 

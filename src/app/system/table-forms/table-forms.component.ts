@@ -94,25 +94,21 @@ export class TableFormsComponent implements OnInit, AfterViewInit {
     const result = records.filter((record: any) => {
       const {
         name,
-        firstname,
-        surname,
+        lastName,
+        surName,
         age,
-        phone
+        phoneNumber
       } = record;
 
       return (
         name && name.toLowerCase().includes(searchTerm) ||
-        firstname && firstname.toLowerCase().includes(searchTerm) ||
-        surname && surname.toLowerCase().includes(searchTerm) ||
+        lastName && lastName.toLowerCase().includes(searchTerm) ||
+        surName && surName.toLowerCase().includes(searchTerm) ||
         age && age.toString().includes(searchTerm) ||
-        phone && phone.includes(searchTerm)
+        phoneNumber && phoneNumber.includes(searchTerm)
       );
     });
 
     return result;
-  }
-
-  al(id: any) {
-    alert(id)
   }
 }

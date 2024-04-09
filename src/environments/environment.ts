@@ -1,4 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://dent-back-f4b3e86c2b5e.herokuapp.com',
+  // apiUrl: 'http://localhost:8081',
+  apiUrl: 'http://localhost:3000',
+  // apiUrl: 'http://192.168.100.104:3000',
 };

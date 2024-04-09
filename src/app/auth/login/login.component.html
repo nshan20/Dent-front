@@ -3,10 +3,9 @@
 
     <div class="alert alert-danger"
          role="alert"
-    *ngIf="massage.text">
-      {{ massage.text }}
+    *ngIf="massage?.text">
+      {{ massage?.text }}
     </div>
-
 
     <mat-toolbar class="login-toolbar" color="primary">Ցիտօ դենտ</mat-toolbar>
     <mat-card>
@@ -21,7 +20,7 @@
           <input type="password" autocomplete="false" matInput placeholder="Password" formControlName="password">
         </mat-form-field>
 
-        <button [disabled]="loginForm.invalid"
+        <button [disabled]="loginForm?.invalid"
                 (click)="onSubmit(loginForm, formDirective)"
                 type="submit"
                 mat-raised-button
