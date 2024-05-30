@@ -77,8 +77,10 @@ export class LoginComponent implements OnInit {
   //     })
   // }
 
+  // username
+
   onSubmit(formData: FormGroup | any, loginDirective: FormGroupDirective | any) {
-    this.usersService.postLogin({password: formData.value.password, username: formData.value.email})
+    this.usersService.postLogin({password: formData.value.password, email: formData.value.email})
       .subscribe((user: any) => {
         console.log(user)
         window.localStorage.setItem("token", JSON.stringify(user.token));

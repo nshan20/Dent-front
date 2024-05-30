@@ -60,7 +60,7 @@ export class UsersService {
   //----- login -------------
 
   postLogin(obj: object): Observable<any> {
-    return this.http.post(`${this.urlLink}/login`, obj);
+    return this.http.post(`${this.urlLink}/auth/login`, obj);
   }
 
   getCheckOut() {

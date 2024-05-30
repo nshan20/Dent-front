@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UsersService} from "../../shared/services/users.service";
 import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {debounceTime} from "rxjs";
 
 @Component({
   selector: 'app-calendar',
@@ -82,7 +83,6 @@ export class CalendarComponent implements OnInit {
       return;
     } else if (this.dataDayKey) {
       this.itemForm.disable();
-
 
       this.loading = true;
       if (newTime !== null || newName !== null || newLastName !== null || newPhone !== null) {
