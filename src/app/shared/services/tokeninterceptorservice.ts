@@ -9,12 +9,17 @@ export class Tokeninterceptorservice implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('token');
+    const token: string | null = localStorage.getItem('token');
 
-    if (token) {
+    let tokenWithoutQuotes: string | null = null;
+    if (token !== null) {
+      tokenWithoutQuotes = `Bearer ${token.replace(/"/g, '')}`;
+    }
+
+    if (tokenWithoutQuotes) {
       const modifiedRequest = request.clone({
         setHeaders: {
-          Authorization: token
+          Authorization: tokenWithoutQuotes
         }
       });
 

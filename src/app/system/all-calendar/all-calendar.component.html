@@ -1,3 +1,8 @@
+<div *ngIf="loading" class="loading">
+  <mat-spinner></mat-spinner>
+</div>
+
+
 <div class="big-container">
   <div class="search">
     <mat-form-field class="example-full-width">
@@ -36,13 +41,13 @@
 
 
                   <div class="content-dayInfo-blog" style="border-bottom: 1px solid black">
-                    <div class="content-dayInfo">ժանմ</div>
+                    <div class="content-dayInfo">ժամ</div>
                     <div class="content-dayInfo">Անուն</div>
                     <div class="content-dayInfo">Ազգանուն</div>
                     <div class="content-dayInfo">Համար</div>
                   </div>
                   <div class="content-dayInfo-blog"
-                       *ngFor="let dayInfo of element.dayInfo"
+                       *ngFor="let dayInfo of JSON.parse(element.dayInfo)"
                        style="margin-top: 10px; border-bottom: rgb(212,209,209) solid 1px">
                     <div class="content-dayInfo"><p>{{ dayInfo.time }}</p></div>
                     <div class="content-dayInfo"><p>{{ dayInfo.name }}</p></div>

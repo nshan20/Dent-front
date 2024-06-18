@@ -24,7 +24,7 @@ export class UsersService {
   }
 
   addMedicalForms(obj: object): Observable<any> {
-    return this.http.post(`${this.urlLink}/smedicalFormsAdd`, obj);
+    return this.http.post(`${this.urlLink}/medical-forms`, obj);
   }
 
   editMedicalForms(obj: any): Observable<any> {
@@ -38,19 +38,19 @@ export class UsersService {
 //------------ calendar -------------
 
   getCalendar() {
-    return this.http.get(`${this.urlLink}/calendar`);
+    return this.http.get(`${this.urlLink}/calendars`);
   }
 
   getCalendarByDayDate(dayDate: string) {
-    return this.http.get(`${this.urlLink}/calendar/${dayDate}`);
+    return this.http.get(`${this.urlLink}/calendars?q=${dayDate}`);
   }
 
   postCalendar(obj: object) {
-    return this.http.post(`${this.urlLink}/calendarAdd`, obj);
+    return this.http.post(`${this.urlLink}/calendars`, obj);
   }
 
   patchCalendar(obj: object, id: any) {
-    return this.http.put(`${this.urlLink}/calendarUpdate/${id}`, obj);
+    return this.http.put(`${this.urlLink}/calendars/${id}`, obj);
   }
 
   deleteCalendar(id: any) {

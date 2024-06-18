@@ -46,7 +46,6 @@ export class AddFormComponent implements OnInit {
     if (this.form.valid) {
       this.usersService.addMedicalForms(this.form.value)
         .subscribe(value => {
-
           this.router.navigate(["system/forms"])
         })
     }
@@ -92,6 +91,4 @@ export class AddFormComponent implements OnInit {
       }
     );
   }
-
-
 }

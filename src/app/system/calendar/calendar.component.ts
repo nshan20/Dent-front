@@ -15,7 +15,7 @@ export class CalendarComponent implements OnInit {
 
   itemForm: FormGroup | any;
   itemFormArray: any;
-  itemFormArrayId: number | undefined;
+  itemFormArrayId: any;
 
   loading: boolean = false;
 
@@ -127,8 +127,10 @@ export class CalendarComponent implements OnInit {
 
     this.usersService.getCalendarByDayDate(this.dataDayKey)
       .subscribe(
-        (value: any) => {
-          if (!value) {
+        (valueData: any) => {
+          let value = valueData.data;
+
+          if (!value.length) {
             while (this.items.length !== 0) {
               this.items.removeAt(this.items.length - 1);
             }
@@ -140,7 +142,7 @@ export class CalendarComponent implements OnInit {
             return;
           }
 
-          const valueDataCalendar = JSON.parse(value.dayInfo);
+          const valueDataCalendar = JSON.parse(value[0].dayInfo);
 
           valueDataCalendar.sort((a: { time: any; }, b: { time: any; }) => {
             const timeA = a.time;
@@ -154,7 +156,7 @@ export class CalendarComponent implements OnInit {
           }
 
           this.itemFormArray = valueDataCalendar;
-          this.itemFormArrayId = value.id;
+          this.itemFormArrayId = value[0].id;
 
           for (let j = 0; j < this.itemFormArray.length; j++) {
             this.formAdder(this.itemFormArray[j], this.itemFormArrayId);

@@ -82,8 +82,7 @@ export class LoginComponent implements OnInit {
   onSubmit(formData: FormGroup | any, loginDirective: FormGroupDirective | any) {
     this.usersService.postLogin({password: formData.value.password, email: formData.value.email})
       .subscribe((user: any) => {
-        console.log(user)
-        window.localStorage.setItem("token", JSON.stringify(user.token));
+        window.localStorage.setItem("token", JSON.stringify(user.token.accessToken));
         this.authService.login();
         this.router.navigate(['/system']);
         //ts-ignore

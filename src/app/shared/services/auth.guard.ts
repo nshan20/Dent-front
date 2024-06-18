@@ -27,18 +27,19 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     let token = JSON.parse(<string>localStorage.getItem("token"));
 
     if (token) {
-      this.usersService.getCheckOut()
-        .subscribe((value: any) => {
-          return true;
-        }, error => {
-          this.authService.logout();
-          this.router.navigate(['/login'], {
-            queryParams: {
-              accsesDenaid: true
-            }
-          });
-          return false;
-        })
+      return true;
+      // this.usersService.getCheckOut()
+      //   .subscribe((value: any) => {
+      //     return true;
+      //   }, error => {
+      //     this.authService.logout();
+      //     this.router.navigate(['/login'], {
+      //       queryParams: {
+      //         accsesDenaid: true
+      //       }
+      //     });
+      //     return false;
+      //   })
     }
 
     if (token) {

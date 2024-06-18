@@ -14,6 +14,8 @@ export class AllCalendarComponent  implements OnInit, AfterViewInit {
   forms: any;
   clientForms: any = [];
 
+  loading: boolean = false;
+
 
   displayedColumns: string[] = [
     'dayDate'
@@ -36,10 +38,13 @@ export class AllCalendarComponent  implements OnInit, AfterViewInit {
   }
 
   getAllMedicalForms() {
+    this.loading = true;
     this.usersService.getCalendar().subscribe((forms: any) => {
-      this.forms = forms;
-      this.clientForms = [...forms];
-      this.dataSource.data = [...forms];
+
+      this.forms = forms.data;
+      this.clientForms = [...forms.data];
+      this.dataSource.data = [...forms.data];
+      this.loading = false;
     })
   }
 
@@ -63,4 +68,6 @@ export class AllCalendarComponent  implements OnInit, AfterViewInit {
 
     return result;
   }
+
+  protected readonly JSON = JSON;
 }
