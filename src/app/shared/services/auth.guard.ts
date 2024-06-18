@@ -28,6 +28,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
     if (token) {
       return true;
+
       // this.usersService.getCheckOut()
       //   .subscribe((value: any) => {
       //     return true;

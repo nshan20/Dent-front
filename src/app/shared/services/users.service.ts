@@ -64,6 +64,8 @@ export class UsersService {
   }
 
   getCheckOut() {
+
+
     return this.http.get(`${this.urlLink}/checkout`);
   }
 
