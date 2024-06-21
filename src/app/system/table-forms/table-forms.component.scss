@@ -40,3 +40,14 @@ table {
 ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: #ffffff !important;
 }
+
+.loading{
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 60px);
+  background: rgba(0, 0, 0, 0.07);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}

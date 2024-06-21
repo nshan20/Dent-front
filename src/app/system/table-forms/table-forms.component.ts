@@ -5,7 +5,9 @@ import {Router, RouterLink, Routes} from "@angular/router";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {MatTableDataSource, MatTableModule} from "@angular/material/table";
-import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
+import {MatPaginator, MatPaginatorModule, PageEvent} from "@angular/material/paginator";
+import {Pagination} from "../../shared/pagination";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-table-forms',
@@ -20,7 +22,8 @@ import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
     NgStyle,
     MatInputModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ],
   styleUrls: ['./table-forms.component.scss']
 })
@@ -29,6 +32,18 @@ export class TableFormsComponent implements OnInit, AfterViewInit {
   forms: any;
   clientForms: any[] = [];
   deleteMedicalForms: any;
+
+  loading: boolean = false;
+
+  metaForms: Pagination = {
+    page: 0,
+    take: 0,
+    itemCount: 0,
+    pageCount: 0,
+    hasPreviousPage: false,
+    hasNextPage: true,
+  };
+  pageLimit:number[] = [5, 10, 50] ;
 
 
   displayedColumns: string[] = [
@@ -61,9 +76,11 @@ export class TableFormsComponent implements OnInit, AfterViewInit {
 
   getAllMedicalForms() {
     this.usersService.getAllMedicalForms().subscribe(forms => {
-      this.forms = forms;
-      this.clientForms = forms;
-      this.dataSource.data = [...forms];
+      this.forms = forms.data;
+      this.clientForms = forms.data;
+      this.dataSource.data = [...forms.data];
+
+      this.metaForms = forms.meta;
     })
   }
 
@@ -110,5 +127,21 @@ export class TableFormsComponent implements OnInit, AfterViewInit {
     });
 
     return result;
+  }
+
+  onPageChange(event: PageEvent) {
+    console.log(event, "event");
+
+    this.loading = true;
+
+    this.usersService.getAllMedicalForms(event.pageIndex + 1, event.pageSize)
+      .subscribe(forms => {
+      this.forms = forms.data;
+      this.clientForms = forms.data;
+      // this.dataSource.data = [...forms.data];
+
+      this.metaForms = forms.meta;
+      this.loading = false;
+    })
   }
 }

@@ -1,8 +1,11 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
-import {MatPaginator} from "@angular/material/paginator";
+import {MatPaginator, PageEvent} from "@angular/material/paginator";
 import {UsersService} from "../../shared/services/users.service";
 import {Router} from "@angular/router";
+import {async, map} from "rxjs";
+import {Pagination} from "../../shared/pagination";
+
 
 @Component({
   selector: 'app-all-calendar',
@@ -16,6 +19,15 @@ export class AllCalendarComponent  implements OnInit, AfterViewInit {
 
   loading: boolean = false;
 
+  metaForms: Pagination = {
+    page: 0,
+    take: 0,
+    itemCount: 0,
+    pageCount: 0,
+    hasPreviousPage: false,
+    hasNextPage: true,
+  };
+  pageLimit:number[] = [5, 10, 50] ;
 
   displayedColumns: string[] = [
     'dayDate'
@@ -39,7 +51,15 @@ export class AllCalendarComponent  implements OnInit, AfterViewInit {
 
   getAllMedicalForms() {
     this.loading = true;
-    this.usersService.getCalendar().subscribe((forms: any) => {
+    this.usersService.getCalendar()
+      .pipe(
+        map((empData: any) => {
+          console.log(empData, "11111")
+          return empData;
+        })
+      )
+      .subscribe((forms: any) => {
+      this.metaForms = forms.meta;
 
       this.forms = forms.data;
       this.clientForms = [...forms.data];
@@ -55,19 +75,29 @@ export class AllCalendarComponent  implements OnInit, AfterViewInit {
 
   searchRecords(records: any, searchTerm: any) {
     searchTerm = searchTerm.toLowerCase();
-
     const result = records.filter((record: any) => {
       const {
         dayDate
       } = record;
-
       return (
         dayDate && dayDate.toLowerCase().includes(searchTerm)
       );
     });
-
     return result;
   }
 
   protected readonly JSON = JSON;
+
+  onPageChange(event: PageEvent) {
+    console.log(event, "event");
+
+    this.loading = true;
+    this.usersService.getCalendar(event.pageIndex + 1, event.pageSize)
+      .subscribe((forms: any) => {
+        this.forms = forms.data;
+        this.clientForms = [...forms.data];
+        // this.dataSource.data = [...forms.data];
+        this.loading = false;
+      })
+  }
 }

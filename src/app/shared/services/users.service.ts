@@ -15,12 +15,12 @@ export class UsersService {
   }
 
   //----------- medical Forms ------------
-  getAllMedicalForms(): Observable<any> {
-    return this.http.get(`${this.urlLink}/medicalFormsAll`);
+  getAllMedicalForms(page: number = 1, take: number = 5): Observable<any> {
+    return this.http.get(`${this.urlLink}/medical-forms?page=${page}&take=${take}`);
   }
 
   getByIdMedicalForms(id: number | string): Observable<any> {
-    return this.http.get(`${this.urlLink}/medicalFormsById/${id}`);
+    return this.http.get(`${this.urlLink}/medical-forms/${id}`);
   }
 
   addMedicalForms(obj: object): Observable<any> {
@@ -28,17 +28,17 @@ export class UsersService {
   }
 
   editMedicalForms(obj: any): Observable<any> {
-    return this.http.put(`${this.urlLink}/medicalFormsUpdate/${obj.id}`, obj);
+    return this.http.put(`${this.urlLink}/medical-forms/${obj.id}`, obj);
   }
 
   deleteByIdForm(id: number | string) {
-    return this.http.delete(`${this.urlLink}/medicalFormsDelete/${id}`);
+    return this.http.delete(`${this.urlLink}/medical-forms/${id}`);
   }
 
 //------------ calendar -------------
 
-  getCalendar() {
-    return this.http.get(`${this.urlLink}/calendars`);
+  getCalendar(page: number = 1, take: number = 5) {
+    return this.http.get(`${this.urlLink}/calendars?page=${page}&take=${take}`);
   }
 
   getCalendarByDayDate(dayDate: string) {

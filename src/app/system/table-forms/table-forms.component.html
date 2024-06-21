@@ -1,7 +1,11 @@
+<div *ngIf="loading" class="loading">
+  <mat-spinner></mat-spinner>
+</div>
+
 <div class="big-container">
   <div class="search">
     <mat-form-field class="example-full-width">
-      <mat-label>Search</mat-label>
+      <mat-label>Որոնում</mat-label>
       <input matInput (input)="search(valid.value)" #valid>
     </mat-form-field>
   </div>
@@ -10,44 +14,44 @@
     <div class="list">
 
       <div class="mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource">
+        <table mat-table [dataSource]="clientForms">
 
           <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Name</th>
+            <th mat-header-cell *matHeaderCellDef> Անուն</th>
             <td mat-cell style="cursor: pointer" *matCellDef="let element"> {{ element.name }}</td>
           </ng-container>
 
           <ng-container matColumnDef="lastName">
-            <th mat-header-cell *matHeaderCellDef> lastName</th>
+            <th mat-header-cell *matHeaderCellDef> Ազգանուն</th>
             <td mat-cell style="cursor: pointer" *matCellDef="let element" (click)="info(element.id)"> {{ element.lastName }}</td>
           </ng-container>
 
           <ng-container matColumnDef="surName">
-            <th mat-header-cell *matHeaderCellDef> sur Name</th>
+            <th mat-header-cell *matHeaderCellDef> Հայրանուն</th>
             <td mat-cell style="cursor: pointer" *matCellDef="let element" (click)="info(element.id)"> {{ element.surName }}</td>
           </ng-container>
 
           <ng-container matColumnDef="age">
-            <th mat-header-cell *matHeaderCellDef> age</th>
+            <th mat-header-cell *matHeaderCellDef> Տարիք</th>
             <td mat-cell style="cursor: pointer" *matCellDef="let element" (click)="info(element.id)"> {{ element.age }}</td>
           </ng-container>
 
           <ng-container matColumnDef="phoneNumber">
-            <th mat-header-cell *matHeaderCellDef> Phone Number</th>
+            <th mat-header-cell *matHeaderCellDef> Հեռախոսահամար</th>
             <td mat-cell style="cursor: pointer" *matCellDef="let element" (click)="info(element.id)"> {{ element.phoneNumber }}</td>
           </ng-container>
 
           <ng-container matColumnDef="urlFail">
-            <th mat-header-cell *matHeaderCellDef> Url Fail</th>
+            <th mat-header-cell *matHeaderCellDef> Ռենգեն հղում</th>
             <td mat-cell style="cursor: pointer" *matCellDef="let element">
               <a [href]="element.urlFail" target="_blank" *ngIf="element.urlFail">rengen</a>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="registerDate">
-            <th mat-header-cell *matHeaderCellDef> registerDate</th>
+            <th mat-header-cell *matHeaderCellDef> Գրանցման օրը</th>
             <td mat-cell style="cursor: pointer" *matCellDef="let element"
-                (click)="info(element.id)"> {{ element.registerDate | date:"short" }}
+                (click)="info(element.id)"> {{ element.createdAt | date:"short" }}
             </td>
           </ng-container>
 
@@ -70,7 +74,11 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
 
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+        <mat-paginator [length]="metaForms.itemCount"
+                       [pageSize]="metaForms.take"
+                       [pageSizeOptions]="pageLimit"
+                       (page)="onPageChange($event)"
+
                        style="width: 100%; position: sticky; left: 0"
                        showFirstLastButtons
                        aria-label="Select page of periodic elements">

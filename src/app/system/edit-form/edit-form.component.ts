@@ -49,7 +49,7 @@ export class EditFormComponent implements OnInit {
       const id = params['id'];
       this.usersService.getByIdMedicalForms(id)
         .subscribe(medicalForms => {
-          this.form.patchValue(medicalForms[0]);
+          this.form.patchValue(medicalForms);
         })
     });
   }

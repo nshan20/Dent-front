@@ -19,7 +19,7 @@ export class InfoComponent implements OnInit{
       const id = params['id'];
       this.usersService.getByIdMedicalForms(id)
         .subscribe(medicalForms => {
-          this.medicalForms = medicalForms[0];
+          this.medicalForms = medicalForms;
         })
     });
   }

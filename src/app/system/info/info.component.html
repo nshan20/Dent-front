@@ -16,7 +16,7 @@
     </div>
 
     <div class="content">
-      <h1>{{ medicalForms?.registerDate | date:"short" }}</h1>
+      <h1>{{ medicalForms?.createdAt | date:"short" }}</h1>
     </div>
 
     <div class="content" *ngIf="medicalForms?.urlFail">
