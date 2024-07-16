@@ -51,3 +51,11 @@ table {
   align-items: center;
   z-index: 1000;
 }
+
+.input-title{
+  width: 100%;
+}
+
+.input-title::placeholder {
+  color: #000000;
+}

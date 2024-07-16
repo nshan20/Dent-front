@@ -43,7 +43,7 @@ export class TableFormsComponent implements OnInit, AfterViewInit {
     hasPreviousPage: false,
     hasNextPage: true,
   };
-  pageLimit:number[] = [5, 10, 50] ;
+  pageLimit: number[] = [5, 10, 50];
 
 
   displayedColumns: string[] = [
@@ -60,6 +60,16 @@ export class TableFormsComponent implements OnInit, AfterViewInit {
 
   dataSource = new MatTableDataSource<any>();
 
+  paramsData: any = {
+    name: "",
+    lastName: "",
+    surName: "",
+    age: "",
+    phoneNumber: "",
+    page: 1,
+    take: 5,
+  };
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit() {
@@ -75,13 +85,14 @@ export class TableFormsComponent implements OnInit, AfterViewInit {
   }
 
   getAllMedicalForms() {
-    this.usersService.getAllMedicalForms().subscribe(forms => {
-      this.forms = forms.data;
-      this.clientForms = forms.data;
-      this.dataSource.data = [...forms.data];
+    this.usersService.getAllMedicalForms(this.paramsData)
+      .subscribe(forms => {
+        this.forms = forms.data;
+        this.clientForms = forms.data;
 
-      this.metaForms = forms.meta;
-    })
+        this.metaForms = forms.meta;
+        this.loading = false;
+      })
   }
 
 
@@ -100,48 +111,34 @@ export class TableFormsComponent implements OnInit, AfterViewInit {
     this.deleteMedicalForms = medicalForms;
   }
 
-  search(value: string) {
-    this.clientForms = this.searchRecords(this.forms, value);
-    this.dataSource.data = [...this.clientForms];
-  }
+  search(value: string, nameColumn: string) {
+    this.paramsData[nameColumn] = value;
+    this.loading = true;
 
-  searchRecords(records: any, searchTerm: any) {
-    searchTerm = searchTerm.toLowerCase();
+    this.usersService.getAllMedicalForms(this.paramsData)
+      .subscribe(forms => {
+        this.forms = forms.data;
+        this.clientForms = forms.data;
 
-    const result = records.filter((record: any) => {
-      const {
-        name,
-        lastName,
-        surName,
-        age,
-        phoneNumber
-      } = record;
+        this.metaForms = forms.meta;
+        this.loading = false;
+      })
 
-      return (
-        name && name.toLowerCase().includes(searchTerm) ||
-        lastName && lastName.toLowerCase().includes(searchTerm) ||
-        surName && surName.toLowerCase().includes(searchTerm) ||
-        age && age.toString().includes(searchTerm) ||
-        phoneNumber && phoneNumber.includes(searchTerm)
-      );
-    });
-
-    return result;
   }
 
   onPageChange(event: PageEvent) {
-    console.log(event, "event");
-
     this.loading = true;
 
-    this.usersService.getAllMedicalForms(event.pageIndex + 1, event.pageSize)
-      .subscribe(forms => {
-      this.forms = forms.data;
-      this.clientForms = forms.data;
-      // this.dataSource.data = [...forms.data];
+    this.paramsData.page = event.pageIndex + 1;
+    this.paramsData.take = event.pageSize;
 
-      this.metaForms = forms.meta;
-      this.loading = false;
-    })
+    this.usersService.getAllMedicalForms(this.paramsData)
+      .subscribe(forms => {
+        this.forms = forms.data;
+        this.clientForms = forms.data;
+
+        this.metaForms = forms.meta;
+        this.loading = false;
+      })
   }
 }

@@ -15,13 +15,14 @@
     <div class="list">
 
       <div class="mat-elevation-z8">
-        <mat-paginator style="width: 100%; position: sticky; left: 0"
-                       showFirstLastButtons
-                       [length]="metaForms.itemCount"
+        <mat-paginator [length]="metaForms.itemCount"
                        [pageSize]="metaForms.take"
                        [pageSizeOptions]="pageLimit"
                        (page)="onPageChange($event)"
-                       aria-label="Select page of periodic elements">
+
+                       aria-label="Select page of periodic elements"
+                       showFirstLastButtons
+                       style="width: 100%; position: sticky; left: 0">
         </mat-paginator>
 
         <table mat-table [dataSource]="clientForms">

@@ -6,3 +6,7 @@ export interface Pagination {
   hasPreviousPage: boolean;
   hasNextPage: boolean;
 }
+
+export interface PaginationCalendar extends Pagination {
+  dayDate: string;
+}

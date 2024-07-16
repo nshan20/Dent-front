@@ -58,8 +58,9 @@ table {
   }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 520px) {
   .content-dayInfo {
+    font-size: 15px;
     p {
       max-width: 70px;
     }

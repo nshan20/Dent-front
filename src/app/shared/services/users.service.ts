@@ -1,6 +1,6 @@
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
+import {catchError, Observable, throwError} from "rxjs";
 import {environment} from "../../../environments/environment";
 
 @Injectable({
@@ -15,8 +15,44 @@ export class UsersService {
   }
 
   //----------- medical Forms ------------
-  getAllMedicalForms(page: number = 1, take: number = 5): Observable<any> {
-    return this.http.get(`${this.urlLink}/medical-forms?page=${page}&take=${take}`);
+  // getAllMedicalForms(page: number = 1, take: number = 5, name?: string): Observable<any> {
+  //   return this.http.get(`${this.urlLink}/medical-forms?page=${page}&take=${take}&name=${name}`);
+  // }
+
+  getAllMedicalForms(paramObj: any): Observable<any> {
+
+    let params = new HttpParams()
+      .set('page', paramObj.page.toString())
+      .set('take', paramObj.take.toString());
+
+    if (paramObj.name) {
+      params = params.set('name', paramObj.name);
+    }
+
+    if (paramObj.lastName) {
+      params = params.set('lastName', paramObj.lastName);
+    }
+
+    if (paramObj.surName) {
+      params = params.set('surName', paramObj.surName);
+    }
+
+    if (paramObj.age) {
+      params = params.set('age', paramObj.age);
+    }
+
+    if (paramObj.phoneNumber) {
+      params = params.set('phoneNumber', paramObj.phoneNumber);
+    }
+
+    return this.http.get<any>(`${this.urlLink}/medical-forms`, { params }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError(error: any): Observable<never> {
+    console.error('An error occurred:', error);
+    return throwError('Something went wrong; please try again later.');
   }
 
   getByIdMedicalForms(id: number | string): Observable<any> {
@@ -37,12 +73,22 @@ export class UsersService {
 
 //------------ calendar -------------
 
-  getCalendar(page: number = 1, take: number = 5) {
-    return this.http.get(`${this.urlLink}/calendars?page=${page}&take=${take}`);
+  getCalendar(paramObj: any): Observable<any> {
+    let params = new HttpParams()
+      .set('page', paramObj.page.toString())
+      .set('take', paramObj.take.toString());
+
+    if (paramObj.dayDate) {
+      params = params.set('dayDate', paramObj.dayDate);
+    }
+
+    return this.http.get<any>(`${this.urlLink}/calendars`, { params }).pipe(
+      catchError(this.handleError)
+    );
   }
 
   getCalendarByDayDate(dayDate: string) {
-    return this.http.get(`${this.urlLink}/calendars?q=${dayDate}`);
+    return this.http.get(`${this.urlLink}/calendars?dayDate=${dayDate}`);
   }
 
   postCalendar(obj: object) {

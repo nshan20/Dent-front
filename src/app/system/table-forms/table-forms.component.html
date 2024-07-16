@@ -3,13 +3,6 @@
 </div>
 
 <div class="big-container">
-  <div class="search">
-    <mat-form-field class="example-full-width">
-      <mat-label>Որոնում</mat-label>
-      <input matInput (input)="search(valid.value)" #valid>
-    </mat-form-field>
-  </div>
-
   <div class="table-list">
     <div class="list">
 
@@ -17,28 +10,61 @@
         <table mat-table [dataSource]="clientForms">
 
           <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef> Անուն</th>
+            <th mat-header-cell *matHeaderCellDef>
+              <input (input)="search(valid.value, 'name')"
+                     #valid
+                     class="input-title"
+                     placeholder="Անուն">
+            </th>
             <td mat-cell style="cursor: pointer" *matCellDef="let element"> {{ element.name }}</td>
           </ng-container>
 
           <ng-container matColumnDef="lastName">
-            <th mat-header-cell *matHeaderCellDef> Ազգանուն</th>
-            <td mat-cell style="cursor: pointer" *matCellDef="let element" (click)="info(element.id)"> {{ element.lastName }}</td>
+            <th mat-header-cell *matHeaderCellDef>
+              <input (input)="search(valid.value, 'lastName')"
+                     #valid
+                     class="input-title"
+                     placeholder="Ազգանուն">
+            </th>
+            <td mat-cell style="cursor: pointer" *matCellDef="let element"
+                (click)="info(element.id)"> {{ element.lastName }}
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="surName">
-            <th mat-header-cell *matHeaderCellDef> Հայրանուն</th>
-            <td mat-cell style="cursor: pointer" *matCellDef="let element" (click)="info(element.id)"> {{ element.surName }}</td>
+            <th mat-header-cell *matHeaderCellDef>
+              <input (input)="search(valid.value, 'surName')"
+                     #valid
+                     class="input-title"
+                     placeholder="Հայրանուն">
+            </th>
+            <td mat-cell style="cursor: pointer" *matCellDef="let element"
+                (click)="info(element.id)"> {{ element.surName }}
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="age">
-            <th mat-header-cell *matHeaderCellDef> Տարիք</th>
-            <td mat-cell style="cursor: pointer" *matCellDef="let element" (click)="info(element.id)"> {{ element.age }}</td>
+            <th mat-header-cell *matHeaderCellDef>
+              <input (input)="search(valid.value, 'age')"
+                     #valid
+                     class="input-title"
+                     placeholder="Տարիք">
+            </th>
+            <td mat-cell style="cursor: pointer" *matCellDef="let element"
+                (click)="info(element.id)"> {{ element.age }}
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="phoneNumber">
-            <th mat-header-cell *matHeaderCellDef> Հեռախոսահամար</th>
-            <td mat-cell style="cursor: pointer" *matCellDef="let element" (click)="info(element.id)"> {{ element.phoneNumber }}</td>
+            <th mat-header-cell *matHeaderCellDef>
+              <input (input)="search(valid.value, 'phoneNumber')"
+                     #valid
+                     class="input-title"
+                     placeholder="Հեռախոսահամար">
+            </th>
+            <td mat-cell style="cursor: pointer" *matCellDef="let element"
+                (click)="info(element.id)"> {{ element.phoneNumber }}
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="urlFail">
@@ -57,7 +83,7 @@
 
           <ng-container matColumnDef="edit">
             <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell style="cursor: pointer" *matCellDef="let element" >
+            <td mat-cell style="cursor: pointer" *matCellDef="let element">
               <span class="material-symbols-outlined" [routerLink]="['/system/edit-form', element.id]">edit</span>
             </td>
           </ng-container>

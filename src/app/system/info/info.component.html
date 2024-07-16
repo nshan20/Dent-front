@@ -1,27 +1,47 @@
 <div class="big-container">
   <div class="container">
 
-    <button mat-raised-button color="primary" [routerLink]="'/system/forms'"> < to back</button>
+    <button mat-raised-button color="primary"
+            style="font-size: 15px; margin-top: 20px; margin-bottom: 20px"
+            [routerLink]="'/system/forms'">
+      <span class="material-symbols-outlined" style="font-size: 15px">arrow_back</span> To back
+    </button>
 
-    <div class="content">
-      <h1> {{ medicalForms?.name }} &nbsp;</h1>
-      <h1> {{ medicalForms?.surName }} &nbsp; </h1>
-      <h1> {{ medicalForms?.lastName }} &nbsp; </h1>
-      <h1> {{ medicalForms?.age }} &nbsp; </h1>
-      <h1> {{ medicalForms?.phoneNumber }}</h1>
+    <div class="content" style="background: #00d5bc">
+      <span class="material-symbols-outlined user-icon">person</span>
+    </div>
+
+    <div class="content" style="background: #00d5bc">
+      <h3>{{ "Անուն" + " " + medicalForms?.name }} &nbsp;</h3>
+      <h3> {{ "Ազգանուն" + " " + medicalForms?.lastName }} &nbsp; </h3>
     </div>
 
     <div class="content">
-      <h1>{{ medicalForms?.description }}</h1>
+      <h3> {{ "Հայրանուն" + " " + medicalForms?.surName }} &nbsp; </h3>
+      <h3> {{ "Տարիք" + " " + medicalForms?.age }} &nbsp; </h3>
     </div>
 
     <div class="content">
-      <h1>{{ medicalForms?.createdAt | date:"short" }}</h1>
+      <h3> {{ "Հեռախոսահամար" + " " + medicalForms?.phoneNumber }}</h3>
+    </div>
+
+    <div class="content">
+      <!--      <span class="material-symbols-outlined">description</span>-->
+      <h3>Մանրամասներ</h3>
+    </div>
+
+    <div class="content">
+      <h3> {{ medicalForms?.description }}</h3>
     </div>
 
     <div class="content" *ngIf="medicalForms?.urlFail">
-      <h1><a [href]="medicalForms?.urlFail" target="_blank">rengen Link</a></h1>
+      <h3><a [href]="medicalForms?.urlFail" target="_blank">Ռենգեն հղում</a></h3>
     </div>
+
+    <div class="content">
+      <h3> Ստեղծման օրը և ժամը : {{ medicalForms?.createdAt | date:"short" }}</h3>
+    </div>
+    <br>
 
   </div>
 </div>
