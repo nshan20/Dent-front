@@ -58,11 +58,13 @@
       </div>
     </div>
 
-
-    <button mat-raised-button color="primary"
+    <button mat-fab extended
             *ngIf="selected"
-            style="margin-left: 20px"
-            (click)="addItem()">Add Time +
+            style="margin-left: 20px;
+             background: black"
+            (click)="addItem()">
+      Ավելացնել Ժամ
+      <mat-icon>add</mat-icon>
     </button>
 
   </div>

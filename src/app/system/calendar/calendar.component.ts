@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UsersService} from "../../shared/services/users.service";
 import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {debounceTime} from "rxjs";
+// import * as buffer from "node:buffer";
 
 @Component({
   selector: 'app-calendar',
@@ -18,6 +19,8 @@ export class CalendarComponent implements OnInit {
   itemFormArrayId: any;
 
   loading: boolean = false;
+
+  valueData: boolean = false;
 
   constructor(private usersService: UsersService, private formBuilder: FormBuilder) {
   }
@@ -39,6 +42,24 @@ export class CalendarComponent implements OnInit {
     phone: string = "",
     id: string = ""
   ) {
+
+    if (this.valueData) {
+      this.loading = true;
+
+      const dayInfo = JSON.stringify(this.itemForm.value.items);
+
+      const obj = {
+        dayDate: this.dataDayKey,
+        dayInfo: dayInfo,
+      }
+
+      this.usersService.postCalendar(obj)
+        .subscribe((value: any) => {
+          this.getDateChangedValue();
+          this.loading = false;
+        })
+    }
+
     const itemGroup = this.formBuilder.group({
       time: new FormControl(time),
       name: new FormControl(name),
@@ -50,7 +71,6 @@ export class CalendarComponent implements OnInit {
   }
 
   postItem(index: number) {
-
     // @ts-ignore
     const newTime = this.items.at(index).get('time').value;
     // @ts-ignore
@@ -81,36 +101,37 @@ export class CalendarComponent implements OnInit {
       }
 
       return;
-    } else if (this.dataDayKey) {
-      this.itemForm.disable();
-
-      this.loading = true;
-      if (newTime !== null || newName !== null || newLastName !== null || newPhone !== null) {
-        this.items.at(index).get('time')?.patchValue(newTime);
-        this.items.at(index).get('name')?.patchValue(newName);
-        this.items.at(index).get('lastName')?.patchValue(newLastName);
-        this.items.at(index).get('phone')?.patchValue(newPhone);
-
-        const dayInfo = JSON.stringify(this.itemForm.value.items);
-
-        const obj = {
-          dayDate: this.dataDayKey,
-          dayInfo: dayInfo,
-        }
-
-        this.usersService.postCalendar(obj)
-          .subscribe((value: any) => {
-            this.getDateChangedValue();
-            this.loading = false;
-            // this.itemForm.enabled();
-            if (this.itemForm && typeof this.itemForm.enabled === 'function') {
-              this.itemForm.enabled();
-            }
-          })
-      }
-
-      return;
     }
+    // else if (this.dataDayKey) {
+    //   this.itemForm.disable();
+    //
+    //   this.loading = true;
+    //   if (newTime !== null || newName !== null || newLastName !== null || newPhone !== null) {
+    //     this.items.at(index).get('time')?.patchValue(newTime);
+    //     this.items.at(index).get('name')?.patchValue(newName);
+    //     this.items.at(index).get('lastName')?.patchValue(newLastName);
+    //     this.items.at(index).get('phone')?.patchValue(newPhone);
+    //
+    //     const dayInfo = JSON.stringify(this.itemForm.value.items);
+    //
+    //     const obj = {
+    //       dayDate: this.dataDayKey,
+    //       dayInfo: dayInfo,
+    //     }
+    //
+    //     this.usersService.postCalendar(obj)
+    //       .subscribe((value: any) => {
+    //         this.getDateChangedValue();
+    //         this.loading = false;
+    //         // this.itemForm.enabled();
+    //         if (this.itemForm && typeof this.itemForm.enabled === 'function') {
+    //           this.itemForm.enabled();
+    //         }
+    //       })
+    //   }
+    //
+    //   return;
+    // }
   }
 
 
@@ -130,12 +151,16 @@ export class CalendarComponent implements OnInit {
         (valueData: any) => {
           let value = valueData.data;
 
+          this.valueData = false;
+
           if (!value.length) {
+            this.valueData = true;
+
             while (this.items.length !== 0) {
               this.items.removeAt(this.items.length - 1);
             }
 
-            this.addItem();
+            // this.addItem();
             this.loading = false;
             this.itemFormArray = undefined;
             this.itemFormArrayId = undefined;
@@ -168,6 +193,8 @@ export class CalendarComponent implements OnInit {
 
           this.loading = false;
           return;
+        }, error => {
+          this.valueData = false;
         }
       );
   }
