@@ -131,4 +131,10 @@ export class UsersService {
     });
   }
 
+  //---------default------------
+
+  default(): Observable<any> {
+    return this.http.get(`${this.urlLink}/health`);
+  }
+
 }

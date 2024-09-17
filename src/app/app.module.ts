@@ -54,11 +54,16 @@ import {MatTableModule} from "@angular/material/table";
     MatPaginatorModule,
     MatTableModule,
   ],
-  providers: [UsersService, AuthService, AuthGuard, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: Tokeninterceptorservice,
-    multi: true
-  }],
+  providers: [
+    UsersService,
+    AuthService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Tokeninterceptorservice,
+      multi: true
+    }
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

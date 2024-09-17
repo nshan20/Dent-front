@@ -21,6 +21,9 @@ export class SystemComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.usersService.default()
+      .subscribe((value: any) => {
+      })
   }
 
   logaut(){
