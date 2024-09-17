@@ -137,4 +137,10 @@ export class UsersService {
     return this.http.get(`${this.urlLink}/health`);
   }
 
+  wakeUpTheServer() {
+    this.default()
+      .subscribe((value: any) => {
+      })
+  }
+
 }

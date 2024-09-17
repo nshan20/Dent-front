@@ -81,6 +81,7 @@ export class TableFormsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.usersService.wakeUpTheServer();
     this.getAllMedicalForms();
   }
 

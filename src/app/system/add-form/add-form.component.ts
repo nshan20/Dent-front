@@ -26,6 +26,7 @@ export class AddFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.usersService.wakeUpTheServer();
     this.createForm()
   }
 

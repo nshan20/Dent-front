@@ -26,6 +26,7 @@ export class EditFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.usersService.wakeUpTheServer();
     this.createForm();
     this.getForm();
   }

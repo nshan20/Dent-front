@@ -15,6 +15,7 @@ export class InfoComponent implements OnInit{
   }
 
   ngOnInit() {
+    this.usersService.wakeUpTheServer();
     this.route.params.subscribe(params => {
       const id = params['id'];
       this.usersService.getByIdMedicalForms(id)

@@ -47,6 +47,7 @@ export class AllCalendarComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.usersService.wakeUpTheServer();
     this.getAllMedicalForms();
   }
 

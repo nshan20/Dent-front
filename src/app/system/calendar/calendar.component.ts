@@ -26,6 +26,7 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.usersService.wakeUpTheServer();
     this.itemForm = this.formBuilder.group({
       items: this.formBuilder.array([])
     });
