@@ -22,6 +22,10 @@ export class SystemComponent implements OnInit {
 
   ngOnInit() {
     this.usersService.wakeUpTheServer();
+    this.usersService.wakeUpTheServer();
+    this.usersService.wakeUpTheServer();
+    this.usersService.wakeUpTheServer();
+    this.usersService.wakeUpTheServer();
   }
 
   logaut(){
